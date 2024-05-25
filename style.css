@@ -19,7 +19,7 @@ label {
 .quiz {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
 }
 
 .quiz-1 p,
@@ -35,6 +35,26 @@ label {
   margin-bottom: 20px;
 }
 
+/* .question {
+  display: none;
+} */
+
+.quiz-2,
+.quiz-3 {
+  display: none;
+}
+
 .quiz-option {
   margin: 20px 15px;
+}
+
+button {
+  padding: 20px 30px;
+  background-color: #4caf50;
+  color: #f1f1f1;
+  font-size: 20px;
+}
+
+.active-question {
+  display: block;
 }
