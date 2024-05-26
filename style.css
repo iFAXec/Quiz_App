@@ -35,12 +35,7 @@ label {
   margin-bottom: 20px;
 }
 
-/* .question {
-  display: none;
-} */
-
-.quiz-2,
-.quiz-3 {
+.question {
   display: none;
 }
 
