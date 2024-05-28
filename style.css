@@ -53,3 +53,7 @@ button {
 .active-question {
   display: block;
 }
+
+.score-page{
+  display: none;
+}
