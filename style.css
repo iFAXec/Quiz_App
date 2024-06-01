@@ -50,10 +50,12 @@ button {
   font-size: 20px;
 }
 
-.active-question {
+.active-question,
+.show {
   display: block;
 }
 
-.score-page{
+.score-page,
+.hide {
   display: none;
 }

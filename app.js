@@ -4,6 +4,7 @@ const quizForms = document.querySelector('.quiz');
 const quizOptions = document.querySelectorAll('.quiz-option');
 
 
+
 let currentQuestionIndex = 0;
 
 function showCurrentIndex() {
@@ -29,33 +30,47 @@ nextBtn.addEventListener('click', () => {
     currentQuestionIndex++;
     if (currentQuestionIndex >= questionSections.length) {
         currentQuestionIndex = 0;
+        showUserScore()
+    } else {
+        showCurrentQuestion();
     }
-    showCurrentQuestion();
-
-})
+});
 showCurrentQuestion();
 
 
 
 let userScore = 0;
-let correctAnswers = ['ShopCommerce ', 'All the above', 'All the above'];
+let correctAnswers = ['ShopCommerce', 'All the above', 'All the above'];
+const scoreElement = document.querySelector('.score-page');
+console.log("🚀 ~ scoreElement:", scoreElement);
 
-console.log(quizOptions)
-for (let option of quizOptions) {
-    option.addEventListener('change', (e) => {
+function showUserScore() {
+    scoreElement.classList.add('show');
+    scoreElement.innerHTML = `<h3>Your score is ${userScore} out of ${questionSections.length}</h3>`;
+}
+
+
+
+// console.log(quizOptions)
+for (const option of quizOptions) {
+    option.addEventListener("change", (e) => {
         const selectedOption = e.target;
         const selectedLabel = selectedOption.parentNode;
         const selectedValue = selectedLabel.textContent.trim();
         console.log(selectedValue);
-        // if (selectedValue === correctAnswers[currentQuestionIndex]) {
-        //     userScore++;
-        //     selectedLabel.classList.add('correct-answer');
-        // } else {
-        //     selectedLabel.classList.add('incorrect-answer');
-        // }
-    })
-
+        if (selectedValue === correctAnswers[currentQuestionIndex]) {
+            userScore++;
+        }
+        if (currentQuestionIndex === questionSections.length - 1) {
+            nextBtn.classList.add('hide');
+            showUserScore();
+        }
+    });
 }
+
+console.log("🚀 ~ userScore:", userScore);
+
+
 
 
 
