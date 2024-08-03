@@ -6,6 +6,8 @@ const quizOptions = document.querySelectorAll('.quiz-option');
 
 
 let currentQuestionIndex = 0;
+let userScore = 0;
+
 
 function showCurrentIndex() {
 
@@ -39,7 +41,6 @@ showCurrentQuestion();
 
 
 
-let userScore = 0;
 let correctAnswers = ['ShopCommerce', 'All the above', 'All the above'];
 const scoreElement = document.querySelector('.score-page');
 console.log("🚀 ~ scoreElement:", scoreElement);
