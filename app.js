@@ -1,4 +1,5 @@
 const nextBtn = document.querySelector('.next-btn');
+const prevBtn = document.querySelector('.prev-btn');
 const questionSections = document.querySelectorAll('.question');
 const quizOptions = document.querySelectorAll('.quiz-option');
 const scoreElement = document.querySelector('.score-page');
@@ -49,6 +50,8 @@ function getSelectedAnswer() {
 
 }
 
+prevBtn.classList.toggle('hide', currentQuestionIndex === 0);
+nextBtn.classList.toggle('hide', currentQuestionIndex >= questionSections.length);
 
 nextBtn.addEventListener('click', () => {
     const chosenAnswer = getSelectedAnswer();
@@ -69,7 +72,16 @@ nextBtn.addEventListener('click', () => {
     ;
 })
 
+prevBtn.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showCurrentQuestion();
+    }
+});
+
+
 showCurrentQuestion();
+
 
 
 
