@@ -1,18 +1,18 @@
 const nextBtn = document.querySelector('.next-btn');
 const questionSections = document.querySelectorAll('.question');
-const quizForms = document.querySelector('.quiz');
 const quizOptions = document.querySelectorAll('.quiz-option');
-
+const scoreElement = document.querySelector('.score-page');
 
 
 let currentQuestionIndex = 0;
 let userScore = 0;
+const selectedAnswer = [];
+const correctAnswers = ['ShopCommerce', 'All the above', 'All the above'];
+
 
 
 function showCurrentIndex() {
-
     const questionIndexElement = document.querySelector(`.question[data-question-number="${currentQuestionIndex + 1}"] .question-index`);
-    // console.log(questionIndexElement);
     questionIndexElement.innerHTML = `Question ${currentQuestionIndex + 1} of ${questionSections.length}`;
 }
 
@@ -28,22 +28,6 @@ function showCurrentQuestion() {
     });
 }
 
-nextBtn.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex >= questionSections.length) {
-        currentQuestionIndex = 0;
-        showUserScore()
-    } else {
-        showCurrentQuestion();
-    }
-});
-showCurrentQuestion();
-
-
-
-let correctAnswers = ['ShopCommerce', 'All the above', 'All the above'];
-const scoreElement = document.querySelector('.score-page');
-console.log("🚀 ~ scoreElement:", scoreElement);
 
 function showUserScore() {
     scoreElement.classList.add('show');
@@ -51,25 +35,44 @@ function showUserScore() {
 }
 
 
+function getSelectedAnswer() {
 
-// console.log(quizOptions)
-for (const option of quizOptions) {
-    option.addEventListener("change", (e) => {
-        const selectedOption = e.target;
-        const selectedLabel = selectedOption.parentNode;
-        const selectedValue = selectedLabel.textContent.trim();
-        console.log(selectedValue);
-        if (selectedValue === correctAnswers[currentQuestionIndex]) {
-            userScore++;
+    const quizOptions = questionSections[currentQuestionIndex].querySelectorAll('.quiz-option');
+    console.log("🚀 ~ quizOptions:", quizOptions);
+
+    for (const option of quizOptions) {
+        if (option.checked) {
+            return selectedValue = option.parentNode.textContent.trim();
         }
-        if (currentQuestionIndex === questionSections.length - 1) {
-            nextBtn.classList.add('hide');
-            showUserScore();
-        }
-    });
+    }
+    return null;
+
 }
 
-console.log("🚀 ~ userScore:", userScore);
+
+nextBtn.addEventListener('click', () => {
+    const chosenAnswer = getSelectedAnswer();
+    console.log("🚀 ~ chosenAnswer:", chosenAnswer);
+    selectedAnswer[currentQuestionIndex] = chosenAnswer;
+    if (chosenAnswer === correctAnswers[currentQuestionIndex]) {
+        userScore++;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex >= questionSections.length) {
+        showUserScore();
+        nextBtn.classList.add('hide');
+    } else {
+        showCurrentQuestion();
+    }
+    ;
+})
+
+showCurrentQuestion();
+
+
+
 
 
 
