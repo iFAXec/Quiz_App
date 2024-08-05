@@ -8,18 +8,32 @@ const errorMessage = document.querySelector('#error-message');
 
 
 
-
+/**
+ * currentQuestionIndex: keeps track of which question the user is currently on, starting from 0.
+ * userScore: keeps track of user's score starting from 0
+ * selectedAnswer:An array to store answer selected by the users for each question.
+ * correctAnswer: An array to store the correct answers for each question.
+ */
 let currentQuestionIndex = 0;
 let userScore = 0;
 const selectedAnswer = [];
 const correctAnswers = ['ShopCommerce', 'All the above', 'All the above'];
 
-
+/**
+ * showCurrentIndex function: updates the html element to display the which question the user is currently on.
+ * It selects the element with specific data-question-number attribute and updates its innerHTML.
+ */
 
 function showCurrentIndex() {
     const questionIndexElement = document.querySelector(`.question[data-question-number="${currentQuestionIndex + 1}"] .question-index`);
     questionIndexElement.innerHTML = `Question ${currentQuestionIndex + 1} of ${questionSections.length}`;
 }
+
+/**
+ * showCurrentQuestion function: will display the current question number on the top of the page.
+ * Is displays the current question to the user and hides the other questions.
+ * It loops through all the questions and adds active-question class to displays the question, while removing it from others.
+ */
 
 
 function showCurrentQuestion() {
