@@ -1,8 +1,12 @@
 const nextBtn = document.querySelector('.next-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const questionSections = document.querySelectorAll('.question');
+const quizForms = document.querySelectorAll(".quiz");
 const quizOptions = document.querySelectorAll('.quiz-option');
 const scoreElement = document.querySelector('.score-page');
+const errorMessage = document.querySelector('#error-message');
+
+
 
 
 let currentQuestionIndex = 0;
@@ -37,7 +41,6 @@ function showUserScore() {
 
 
 function getSelectedAnswer() {
-
     const quizOptions = questionSections[currentQuestionIndex].querySelectorAll('.quiz-option');
     console.log("🚀 ~ quizOptions:", quizOptions);
 
@@ -50,12 +53,29 @@ function getSelectedAnswer() {
 
 }
 
-prevBtn.classList.toggle('hide', currentQuestionIndex === 0);
-nextBtn.classList.toggle('hide', currentQuestionIndex >= questionSections.length);
+function updateButtonVisibility() {
+    prevBtn.classList.toggle('hide', currentQuestionIndex === 0);
+    nextBtn.classList.toggle('hide', currentQuestionIndex >= questionSections.length);
+}
+
+function validationCheck() {
+    const selectedOption = questionSections[currentQuestionIndex].querySelector('.quiz-option:checked');
+    console.log("🚀 ~ selectedOption:", selectedOption);
+    if (!selectedOption) {
+        errorMessage.textContent = 'Please select an option';
+        return false;
+    }
+    errorMessage.textContent = '';
+    return true;
+}
+
 
 nextBtn.addEventListener('click', () => {
+    if (!validationCheck()) {
+        return;// stop the form if no option is selected        
+    }
     const chosenAnswer = getSelectedAnswer();
-    console.log("🚀 ~ chosenAnswer:", chosenAnswer);
+    // console.log("🚀 ~ chosenAnswer:", chosenAnswer);
     selectedAnswer[currentQuestionIndex] = chosenAnswer;
     if (chosenAnswer === correctAnswers[currentQuestionIndex]) {
         userScore++;
@@ -76,8 +96,11 @@ prevBtn.addEventListener('click', () => {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         showCurrentQuestion();
+        updateButtonVisibility();
     }
 });
+
+
 
 
 showCurrentQuestion();
