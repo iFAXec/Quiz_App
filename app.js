@@ -83,21 +83,29 @@ function validationCheck() {
     return true;
 }
 
+function calculateScore() {
+    selectedAnswer.forEach((answer, index) => {
+        if (answer === correctAnswers[index]) {
+            userScore++;
+        }
+    })
+}
+
 
 nextBtn.addEventListener('click', () => {
     if (!validationCheck()) {
-        return;// stop the form if no option is selected        
+        return;// stop the form if no option is selected
     }
+
     const chosenAnswer = getSelectedAnswer();
     // console.log("🚀 ~ chosenAnswer:", chosenAnswer);
     selectedAnswer[currentQuestionIndex] = chosenAnswer;
-    if (chosenAnswer === correctAnswers[currentQuestionIndex]) {
-        userScore++;
-    }
 
     currentQuestionIndex++;
+    updateButtonVisibility();
 
     if (currentQuestionIndex >= questionSections.length) {
+        calculateScore();
         showUserScore();
         nextBtn.classList.add('hide');
     } else {
